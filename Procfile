@@ -1,0 +1,1 @@
+web: gunicorn Taller.wsgi --log-file -
