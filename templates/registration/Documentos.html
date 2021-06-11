@@ -1,0 +1,153 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+{%  extends 'registration/Principal.html' %}
+
+{% block contador %}
+
+    <div class="item bg-primary text-white rounded" style="margin-right: 20px; text-align: center">
+        <h6>Diagnosticos Realizados</h6>
+        <h7>{{ diagnosticos_count }}</h7>
+    </div>
+
+    <div class="item bg-warning text-dark rounded" style="margin-right: 0px; text-align: center">
+    <h6>Pedidos Realizados</h6>
+    <h7 >{{ pedido_count }}</h7>
+    </div>
+    <div class="item bg-danger text-white rounded" style="margin-left: 20px; text-align: center">
+    <h6>No sé que poner</h6>
+    <h7 >{{ pedido_count }}</h7>
+    </div>
+    <div class="item bg-success text-white rounded" style="margin-left: 20px; text-align: center">
+    <h6>Pedidos Aprobados Total</h6>
+    <h7 >{{ pedido_aprobado_count }}</h7>
+    </div>
+{% endblock contador %}
+{% block content %}
+
+    <h6>User Profile
+        Hello {{ request.user }}
+        <a href="{% url 'logout' %}">Logout</a> </h6>
+{% endblock content %}
+
+{% block doc2 %}
+    <h5>Diagnosticos</h5>
+    <div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <td scope="col">Recepcionista</td>
+                <td scope="col">Camion</td>
+                <td scope="col">Conductor</td>
+                <td scope="col">Descripcion</td>
+                <td scope="col">Fecha</td>
+                <td scope="col">Acciones</td>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+<tr>
+    {% for diagnostico in diagnosticos %}
+        <th scope="row">
+            {{ diagnostico.id }}
+        </th>
+    <td>
+       {{ diagnostico.recepcionista }}
+    </td>
+        <td>
+        {{ diagnostico.Camion }}
+        </td>
+        <td>
+        {{ diagnostico.Conductor }}
+        </td>
+        <td>
+        {{ diagnostico.descripcion }}
+        </td>
+        <td>
+        {{ diagnostico.fecha }}
+        </td>
+    <th>
+        <a href="{% url 'update_Diagnostico' diagnostico.id %}"><i class="fas fa-edit fa-lg text-info"></i>
+    </a>
+    {% if diagnostico %}
+        <a href="{% url 'delete_Diagnostico' diagnostico.id %}"><i class="fas fa-trash-alt fa-lg text-danger"></i></a>
+    {% endif %}
+    </th>
+</tr>
+    {% endfor %}
+
+</table>
+        </div>
+    </div>
+    </div>
+
+
+{% if request.user.is_staff %}
+<button type="button" class="btn btn-primary" onclick="location.href='{% url 'create_Diagnostico' %}'">Nuevo Diagnóstico</button>
+    {% endif %}
+<br>
+{% endblock doc2 %}
+
+{% block doc3 %}
+    <h5>Pedidos</h5>
+    <div class="row">
+<div class="col-md-12">
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+<tr>
+<th scope="col">ID</th>
+<td scope="col">Jefe de Almacen</td>
+<td scope="col">Técnico</td>
+    <td scope="col">Marca</td>
+    <td scope="col">Camion</td>
+    <td scope="col">Repuesto</td>
+    <td scope="col">Estado</td>
+    <td scope="col">Asunto</td>
+    <td scope="col">Cantidad</td>
+    <td scope="col">Tipo Pedido</td>
+    <td scope="col">Aprobado por Administrador</td>
+<td scope="col">Acciones</td>
+</tr>
+</thead>
+<tbody>
+
+        <tr>
+       {% for pedido in pedidos %}
+        <th scope="row">
+            {{ pedido.id}}
+        </th>
+        <td>{{ pedido.JefeAlmacen }}</td>
+        <td> {{ pedido.Tecnico }}</td>
+           <td>{{ pedido.Marca }}</td>
+           <td>{{ pedido.Camion }}</td>
+           <td> {{ pedido.repuesto }}</td>
+           <td>{{ pedido.estado }}</td>
+           <td>{{ pedido.asunto }}</td>
+           <td>{{ pedido.cantidad }}</td>
+           <td>{{ pedido.tipo_pedido }}</td>
+           <td>{{ pedido.administrador }}</td>
+        <th>
+            <a href="{% url 'update_Pedido' pedido.id %}"><i class="fas fa-edit fa-lg text-info"></i></a>
+
+            {% if pedido %}
+                <a href="{% url 'delete_Pedido' pedido.id %}"><i class="fas fa-trash-alt fa-lg text-danger"></i></a>
+            {% endif %}
+        </th>
+        </tr>
+
+    {% endfor %}
+</tbody>
+</table>
+<a href="{% url 'create_Pedido' %}">Nuevo Pedido</a>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</div>
+</div>
+</div>
+{% endblock doc3 %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>

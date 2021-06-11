@@ -1,0 +1,81 @@
+
+
+{%  extends 'registration/Principal.html' %}
+{% block content %}
+    <table>
+    <tr>
+        <td>
+            <h3>User Profile</h3>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h4>Hello {{ request.user }}<a href="{% url 'logout' %}"> Logout</a> </h4>
+        </td>
+    </tr>
+    </table>
+
+
+{% endblock content %}
+
+{% block docusuario %}
+    <h5>Diagnosticos</h5>
+    <div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <td scope="col">Recepcionista</td>
+                <td scope="col">Camion</td>
+                <td scope="col">Conductor</td>
+                <td scope="col">Descripcion</td>
+                <td scope="col">Fecha</td>
+                <td scope="col">Acciones</td>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+<tr>
+    {% for diagnostico in misdiagnosticos %}
+        <th scope="row">
+            {{ diagnostico.id }}
+        </th>
+    <td>
+       {{ diagnostico.recepcionista }}
+    </td>
+        <td>
+        {{ diagnostico.Camion }}
+        </td>
+        <td>
+        {{ diagnostico.Conductor }}
+        </td>
+        <td>
+        {{ diagnostico.descripcion }}
+        </td>
+        <td>
+        {{ diagnostico.fecha }}
+        </td>
+    <th>
+        <a href="{% url 'update_Diagnostico' diagnostico.id %}"><i class="fas fa-edit fa-lg text-info"></i>
+    </a>
+    {% if diagnostico %}
+        <a href="{% url 'delete_Diagnostico' diagnostico.id %}"><i class="fas fa-trash-alt fa-lg text-danger"></i></a>
+    {% endif %}
+    </th>
+</tr>
+    {% endfor %}
+{{ pedido_aprobado_count }}
+</table>
+        </div>
+    </div>
+    </div>
+
+
+{% if request.user.is_staff %}
+<button type="button" class="btn btn-primary" onclick="location.href='{% url 'create_Diagnostico' %}'">Nuevo Diagnóstico</button>
+    {% endif %}
+<br>
+{% endblock docusuario %}

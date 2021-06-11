@@ -1,0 +1,380 @@
+<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<div class="wrapper">
+	<div class="top_navbar">
+		<div class="logo">
+			<a href="#">Taller Paci</a>
+		</div>
+		<div class="top_menu">
+			<div class="home_link">
+				<a href="#">
+					<span class="icon"><i class="fas fa-home"></i></span>
+					<span>Home</span>
+				</a>
+			</div>
+
+			<div class="right_info">
+               {% block content %}
+
+                {% endblock content %}
+
+				<div class="icon_wrap">
+					<div class="icon">
+						<i class="fas fa-bell"></i>
+					</div>
+				</div>
+				<div class="icon_wrap">
+					<div class="icon">
+						<i class="fas fa-cog"></i>
+					</div>
+				</div>
+            <div class="icon_wrap">
+                <div class="icon">
+                    <i class="fas"></i>
+                </div>
+            </div>
+			</div>
+		</div>
+	</div>
+
+	<div class="main_body">
+
+		<div class="sidebar_menu">
+	        <div class="inner__sidebar_menu">
+
+            <script>
+                $(function() {
+
+  // elementos de la lista
+  var menues = $("a");
+
+  // manejador de click sobre todos los elementos
+  menues.click(function() {
+     // eliminamos active de todos los elementos
+     menues.removeClass("active");
+     // activamos el elemento clicado.
+     $(this).addClass("active");
+  });
+
+});
+            </script>
+	        	<ul>
+                    {% if request.user.is_staff %}
+		          <li>
+		            <a href="#">
+		              <span class="icon">
+		              	<i class="fas fa-border-all"></i></span>
+		              <span class="list">Dashboard</span>
+		            </a>
+		          </li>
+                    {% endif %}
+		          <li>
+		            <a href="{% url 'list_Jefe' %}"
+                       {% url 'list_Jefe' as list_jefe %}
+                       {% if request.path == list_jefe %}class="active" {% endif %}>
+		              <span class="icon"><i class="fas fa-address-book"></i></span>
+		              <span class="list">Empleados</span>
+		            </a>
+		          </li>
+		          <li>
+		            <a href="{% url 'list_Documento' %}"
+                    {% url 'list_Documento' as list_documento %}
+                       {% if request.path == list_documento %}class="active" {% endif %}>
+		              <span class="icon"><i class="fas fa-chart-pie"></i></span>
+		              <span class="list">Documentos</span>
+		            </a>
+		          </li>
+		          <li>
+		            <a href="#">
+		              <span class="icon"><i class="fas fa-address-card"></i></span>
+		              <span class="list">About</span>
+		            </a>
+		          </li>
+		          <li>
+		            <a href="#">
+		              <span class="icon"><i class="fab fa-blogger"></i></span>
+		              <span class="list">Blogs</span>
+		            </a>
+		          </li>
+		          <li>
+		            <a href="#">
+		              <span class="icon"><i class="fas fa-map-marked-alt"></i></span>
+		              <span class="list">Maps</span>
+		            </a>
+		          </li>
+		        </ul>
+
+		        <div class="hamburger">
+			        <div class="inner_hamburger">
+			            <span class="arrow">
+			                <i class="fas fa-long-arrow-alt-left">
+
+                            </i>
+			                <i class="fas fa-long-arrow-alt-right"></i>
+			            </span>
+			        </div>
+			    </div>
+
+	        </div>
+	    </div>
+
+	    <div class="container" style="">
+
+	    	<div class="item_wrap ">
+                    {% block contador %}
+                    {% endblock contador %}
+
+            </div>
+            {% url 'list_Jefe' as list_jefe %}
+            {% if request.path == list_jefe %}
+               <div class="item_wrap">
+                <div class="item">
+                    {% block content2 %}
+
+                    {% endblock content2 %}
+                </div>
+                <div class="item">
+                    {% block content3 %}
+                    {% endblock content3 %}
+                </div>
+            </div>
+            {% endif %}
+            {% url 'list_Documento' as list_documento %}
+            {% if request.path == list_documento %}
+            <div class="item_wrap">
+                <div class="item">
+                {% if request.user.is_staff %}
+                    {% block doc2 %}
+
+                    {% endblock doc2 %}
+                {% endif %}
+
+                </div>
+
+            </div>
+            <div class="item_wrap">
+                <div class="item">
+                     {% block doc3 %}
+                    {% endblock doc3 %}
+                </div>
+            </div>
+        {% endif %}
+        <div class="item-wrap">
+            <div class="item">
+                {% block docusuario %}
+                {% endblock docusuario %}
+            </div>
+        </div>
+	    </div>
+	</div>
+</div>
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Montserrat+Subrayada|Ubuntu:400,500,700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: 'Ubuntu', sans-serif;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+body{
+  background: #e8edf5;
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper .top_navbar{
+	width: 100%;
+	height: 65px;
+	display: flex;
+	position: fixed;
+	top: 0;
+}
+
+.wrapper .top_navbar .logo{
+	width: 250px;
+	height: 100%;
+	background: #122b43;
+	border-bottom: 1px solid #122b43;
+}
+
+.wrapper .top_navbar .logo a{
+	display: block;
+    text-align: center;
+    font-family: 'Montserrat Subrayada', sans-serif;
+  	font-size: 20px;
+  	color: #fff;
+  	padding: 20px 0;
+}
+
+.wrapper .top_navbar .top_menu{
+	width: calc(100% - 250px);
+	height: 100%;
+	background: #fff;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wrapper .top_navbar .top_menu .home_link a{
+	display: block;
+    background:#122b43;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 3px;
+}
+
+.wrapper .top_navbar .top_menu .home_link a:hover,
+.wrapper .top_navbar .right_info .icon_wrap:hover {
+    background: #14638c;
+}
+
+.wrapper .top_navbar .right_info{
+	display: flex;
+}
+
+.wrapper .top_navbar .right_info .icon_wrap{
+	padding: 8px 15px;
+    border-radius: 3px;
+	background: #122b43;
+    color: #fff;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.main_body .sidebar_menu{
+	position: fixed;
+  	top: 65px;
+  	left: 0;
+  	background: #122b43;
+  	width: 250px;
+  	height: 100%;
+  	transition: all 0.3s linear;
+}
+
+.main_body .sidebar_menu .inner__sidebar_menu{
+	position: relative;
+	padding-top: 60px;
+}
+
+.main_body .sidebar_menu ul li a{
+  color: #ffffff;
+  font-size: 18px;
+  padding: 20px 35px;
+  display: block;
+  white-space: nowrap;
+}
+
+.main_body .sidebar_menu ul li a .icon{
+  margin-right: 8px;
+}
+
+.main_body .sidebar_menu ul li a span{
+  display: inline-block;
+}
+
+.main_body .sidebar_menu ul li a:hover{
+  background: #14638c;
+  color: #fff;
+}
+
+.main_body .sidebar_menu ul li a.active{
+  background: #20a5d8;
+  color: #fff;
+}
+
+.main_body .sidebar_menu .hamburger{
+  position: absolute;
+  top: 5px;
+  right: -25px;
+  width: 50px;
+  height: 50px;
+  background: #e8edf5;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.main_body .sidebar_menu .inner_hamburger,
+.main_body .sidebar_menu .hamburger .arrow{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.main_body .sidebar_menu .inner_hamburger{
+  width: 40px;
+  border-radius: 50%;
+  height: 40px;
+  background: #122b43;
+}
+
+.main_body .sidebar_menu .hamburger .arrow{
+  color: #fff;
+  font-size: 20px;
+}
+
+.main_body .sidebar_menu .hamburger  .fa-long-arrow-alt-right{
+  display: none;
+}
+
+.main_body .container{
+	width: calc(100% - 250px);
+	margin-top: 65px;
+	margin-left: 250px;
+	padding: 25px 40px;
+	transition: all 0.3s linear;
+}
+
+.main_body .container .item_wrap{
+	display: flex;
+	margin-bottom: 20px;
+}
+
+.main_body .container .item_wrap .item {
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	padding: 25px;
+	font-size: 14px;
+	line-height: 22px;
+}
+
+.main_body .container .item_wrap .item:first-child {
+	margin-right: 20px;
+}
+
+/* after adding active class */
+.wrapper.active .sidebar_menu{
+  width: 100px;
+}
+
+.wrapper.active .hamburger .fa-long-arrow-alt-right{
+  display: block;
+}
+
+.wrapper.active .hamburger .fa-long-arrow-alt-left{
+  display: none;
+}
+
+.wrapper.active .sidebar_menu ul li a .list{
+  display: none;
+}
+
+.wrapper.active .main_body .container{
+  width: calc(100% - 100px);
+  margin-left: 100px;
+}
+
+
+</style>
+
+<script>
+    $(".hamburger").click(function(){
+       $(".wrapper").toggleClass("active")
+    })
+</script>
+

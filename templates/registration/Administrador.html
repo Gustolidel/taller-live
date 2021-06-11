@@ -1,0 +1,129 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+{%  extends 'registration/Principal.html' %}
+
+{% block contador %}
+    <div class="" style="margin-right: 20px">
+
+    <h7>
+        <ul class="list-group text-center">
+    <li class="list-group-item active" aria-current="true">Jefes de Almacen</li>
+    <li class="list-group-item">{{ jefes_count }}</li>
+    </ul>
+    </h7>
+
+    </div>
+    <div class="">
+    <ul class="list-group text-center">
+    <li class="list-group-item active" aria-current="true">Recepcionistas</li>
+    <li class="list-group-item">{{ recepcionistas_count }}</li>
+    </ul>
+    </div>
+    <div class="" style="margin-left: 20px;">
+    <ul class="list-group text-center">
+    <li class="list-group-item active" aria-current="true">Usuarios en Total</li>
+    <li class="list-group-item">{{ usuarios_count }}</li>
+    </ul>
+    </div>
+{% endblock contador %}
+{% block content %}
+
+    <h6>User Profile
+
+    Hello {{ request.user }}
+    <a href="{% url 'logout' %}">Logout</a> </h6>
+{% endblock content %}
+
+{% block content2 %}
+    <h5>Jefes de Almacen</h5>
+    <div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <td scope="col">Nombre</td>
+                <td scope="col">Usuario</td>
+                <td scope="col">Acciones</td>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+<tr>
+    {% for jefe in jefes %}
+        <th scope="row">
+            {{ jefe.id }}
+        </th>
+    <td>
+       {{ jefe.nombreJefe }}
+    </td>
+        <td>
+        {{ jefe.usuario }}
+        </td>
+    <th>
+        <a href="{% url 'update_Jefe' jefe.id %}"><i class="fas fa-edit fa-lg text-info"></i>
+    </a>
+    {% if jefe %}
+        <a href="{% url 'delete_Jefe' jefe.id %}"><i class="fas fa-trash-alt fa-lg text-danger"></i></a>
+    {% endif %}
+    </th>
+</tr>
+    {% endfor %}
+
+</table>
+        </div>
+    </div>
+    </div>
+
+
+
+<button type="button" class="btn btn-primary" onclick="location.href='{% url 'create_Jefe' %}'">Nuevo Jefe de Almacen</button>
+<br>
+{% endblock content2 %}
+
+{% block content3 %}
+    <h5>Recepcionistas</h5>
+    <div class="row">
+<div class="col-md-12">
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+<tr>
+<th scope="col">ID</th>
+<td scope="col">Nombre</td>
+<td scope="col">Usuario</td>
+<td scope="col">Acciones</td>
+</tr>
+</thead>
+<tbody>
+
+        <tr>
+       {% for recepcionista in recepcionistas %}
+        <th scope="row">
+            {{ recepcionista.id }}
+        </th>
+        <td>{{ recepcionista.nombreRecepcionista }}</td>
+        <td> {{ recepcionista.usuario }}</td>
+        <th>
+            <a href="{% url 'update_Recepcionista' recepcionista.id %}"><i class="fas fa-edit fa-lg text-info"></i></a>
+
+            {% if recepcionista %}
+                <a href="{% url 'delete_Recepcionista' recepcionista.id %}"><i class="fas fa-trash-alt fa-lg text-danger"></i></a>
+            {% endif %}
+        </th>
+        </tr>
+
+    {% endfor %}
+</tbody>
+</table>
+<a href="{% url 'create_Recepcionista' %}">Nuevo Recepcionista</a>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</div>
+</div>
+</div>
+{% endblock content3 %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
