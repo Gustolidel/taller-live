@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <title>Repuestos</title>
+</head>
+<body>
+<div class="container mt-5">
+<div class="row">
+<div class="col-md-12">
+<div class="table-responsive">
+<table class="table table-striped">
+<thead>
+<tr>
+<th scope="col">ID</th>
+<td scope="col">Nombre</td>
+<td scope="col">Descripción</td>
+<td scope="col">Stock</td>
+<td scope="col">Marca</td>
+<td scope="col">Modelo</td>
+<td scope="col">Acciones</td>
+</tr>
+</thead>
+<tbody>
+
+        <tr>
+       {% for repuesto in repuestos %}
+        <th scope="row">
+            {{ repuesto.id }}
+        </th>
+        <td>{{ repuesto.nombre }}</td>
+        <td> {{ repuesto.descripcion }}</td>
+        <td> {{ repuesto.stock }}</td>
+        <td> {{ repuesto.marca }}</td>
+        <td> {{ repuesto.modelo }}</td>
+        <th>
+            <a href="{% url 'update_repuesto' repuesto.id %}"><i class="fas fa-edit fa-lg text-info"></i></a>
+
+            {% if repuesto %}
+                <a href="{% url 'delete_repuesto' repuesto.id %}"><i class="fas fa-trash-alt fa-lg text-danger"></i></a>
+            {% endif %}
+        </th>
+        </tr>
+
+    {% endfor %}
+</tbody>
+</table>
+<a href="{% url 'create_repuesto' %}">Nuevo Repuesto</a>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
